@@ -1,206 +1,399 @@
-package Rubiks;
-
-import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
-public class Rubiks {
 
-    enum Moves {
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT,
-        BACK,
-        FRONT
-    }
-    enum Colors {
-        BLUE,
-        RED,
-        YELLOW,
-        GREEN,
-        WHITE,
-        ORANGE
-    }
+public class cubes {
 
-    static boolean proceed=true;
-    static ArrayList <String> solutionStack = new ArrayList<>();
+    String [][] cube = {{
+        "r","r","r",
+        "r","r","r",
+        "r","r","r"
+        }, 
+        {
+        "b","b","b",
+        "b","b","b",
+        "b","b","b"
+        },
+        {
+        "o","o","o",
+        "o","o","o",
+        "o","o","o"
+        }, 
+        {
+        "g","g","g",
+        "g","g","g",
+        "g","g","g"
+        }, 
+        {
+        "y","y","y",
+        "y","y","y",
+        "y","y","y"
+        }, 
+        {
+        "w","w","w",
+        "w","w","w",
+        "w","w","w"
+        }
+    };
 
-    static void solve() {
-        for(int i=solutionStack.size()-1; i>=0; i--){
-            System.out.print(solutionStack.get(i)+"");
-            solutionStack.remove(i);
-        }
-    }
+    class edgedFace{
+        public int current_face;
+        int []edge1 = new int[4];
+        int []edge2 = new int[4];
+        int []edge3 = new int[4];
+        int []edge4 = new int[4];
 
-    static Colors[][][] cube1= {
-        {
-            {Colors.BLUE,Colors.BLUE,Colors.BLUE},
-            {Colors.BLUE,Colors.BLUE,Colors.BLUE},
-            {Colors.BLUE,Colors.BLUE,Colors.BLUE}
-        }
-    };
-    static Colors[][][] cube2= {
-        {
-            {Colors.RED,Colors.RED,Colors.RED},
-            {Colors.RED,Colors.RED,Colors.RED},
-            {Colors.RED,Colors.RED,Colors.RED}
-        }
-    };
-    static Colors[][][] cube3= {
-        {
-            {Colors.YELLOW,Colors.YELLOW,Colors.YELLOW},
-            {Colors.YELLOW,Colors.YELLOW,Colors.YELLOW},
-            {Colors.YELLOW,Colors.YELLOW,Colors.YELLOW}
-        }
-    };
-    static Colors[][][] cube4= {
-        {
-            {Colors.GREEN,Colors.GREEN,Colors.GREEN},
-            {Colors.GREEN,Colors.GREEN,Colors.GREEN},
-            {Colors.GREEN,Colors.GREEN,Colors.GREEN}
-        }
-    };
-    static Colors[][][] cube5= {
-        {
-            {Colors.WHITE,Colors.WHITE,Colors.WHITE},
-            {Colors.WHITE,Colors.WHITE,Colors.WHITE},
-            {Colors.WHITE,Colors.WHITE,Colors.WHITE}
-        }
-    };
-    static Colors[][][] cube6= {
-        {
-            {Colors.ORANGE,Colors.ORANGE,Colors.ORANGE},
-            {Colors.ORANGE,Colors.ORANGE,Colors.ORANGE},
-            {Colors.ORANGE,Colors.ORANGE,Colors.ORANGE}
-        }
-    };
+        public edgedFace(int face){
+            current_face = face;
+
+            switch(face) {
+                case 0:
+                    edge1[0] = 1;
+                    edge1[1] = 2;
+                    edge1[2] = 5;
+                    edge1[3] = 8;
+
+                    edge2[0] = 4;
+                    edge2[1] = 2;
+                    edge2[2] = 5;
+                    edge2[3] = 8;
+
+                    edge3[0] = 3;
+                    edge3[1] = 0;
+                    edge3[2] = 3;
+                    edge3[3] = 6;
+
+                    edge4[0] = 5;
+                    edge4[1] = 2;
+                    edge4[2] = 5;
+                    edge4[3] = 8;
+                    break;
+  
+                case 1:
+                    edge1[0] = 2;
+                    edge1[1] = 2;
+                    edge1[2] = 5;
+                    edge1[3] = 8;
+                    
+                    edge2[0] = 4;
+                    edge2[1] = 2;
+                    edge2[2] = 5;
+                    edge2[3] = 8;
+
+                    edge3[0] = 0;
+                    edge3[1] = 0;
+                    edge3[2] = 3;
+                    edge3[3] = 6;
+
+                    edge4[0] = 5;
+                    edge4[1] = 2;
+                    edge4[2] = 5;
+                    edge4[3] = 8;
+                    break;
+
+                case 2:
+                    edge1[0] = 3;
+                    edge1[1] = 2;
+                    edge1[2] = 5;
+                    edge1[3] = 8;
+                    
+                    edge2[0] = 4;
+                    edge2[1] = 2;
+                    edge2[2] = 5;
+                    edge2[3] = 8;
+
+                    edge3[0] = 1;
+                    edge3[1] = 0;
+                    edge3[2] = 3;
+                    edge3[3] = 6;
+
+                    edge4[0] = 5;
+                    edge4[1] = 2;
+                    edge4[2] = 5;
+                    edge4[3] = 8;
+                    break;
+
+                case 3:
+                    edge1[0] = 0;
+                    edge1[1] = 2;
+                    edge1[2] = 5;
+                    edge1[3] = 8;
+
+                    edge2[0] = 4;
+                    edge2[1] = 2;
+                    edge2[2] = 5;
+                    edge2[3] = 8;
+
+                    edge3[0] = 2;
+                    edge3[1] = 0;
+                    edge3[2] = 3;
+                    edge3[3] = 6;
+
+                    edge4[0] = 5;
+                    edge4[1] = 2;
+                    edge4[2] = 5;
+                    edge4[3] = 8;
+                    break;
     
+                case 4:
+                    edge1[0] = 1;
+                    edge1[1] = 2;
+                    edge1[2] = 5;
+                    edge1[3] = 8;
+                    
+                    edge2[0] = 2;
+                    edge2[1] = 2;
+                    edge2[2] = 5;
+                    edge2[3] = 8;
 
-    static String[][] face = {
-        {"1","2","3"},
-        {"4","5","6"},
-        {"7","8","9"}
-    };
+                    edge3[0] = 3;
+                    edge3[1] = 0;
+                    edge3[2] = 3;
+                    edge3[3] = 6;
 
-    static String[][][] cube = {
-        {
-            {"1b","2b","3b"},
-            {"4b","5b","6b"},
-            {"7b","8b","9b"}
-        },
-        {
-            {"1r","2r","3r"},
-            {"4r","5r","6r"},
-            {"7r","8r","9r"}
-        },
-        {
-            {"1y","2y","3y"},
-            {"4y","5y","6y"},
-            {"7y","8y","9y"}
-        },
-        {
-            {"1g","2g","3g"},
-            {"4g","5g","6g"},
-            {"7g","8g","9g"}
-        },
-        {
-            {"1w","2w","3w"},
-            {"4w","5w","6w"},
-            {"7w","8w","9w"}
-        },
-        {
-            {"1o","2o","3o"},
-            {"4o","5o","6o"},
-            {"7o","8o","9o"}
-        }
-    };
+                    edge4[0] = 0;
+                    edge4[1] = 2;
+                    edge4[2] = 5;
+                    edge4[3] = 8;
+                    break;
 
-    static void show(String[][] Face){
-        for(String[] i: Face){
-            for(String j: i){
-                System.out.print(j);
+                case 5:
+                    edge1[0] = 1;
+                    edge1[1] = 2;
+                    edge1[2] = 5;
+                    edge1[3] = 8;
+                    
+                    edge2[0] = 0;
+                    edge2[1] = 2;
+                    edge2[2] = 5;
+                    edge2[3] = 8;
+
+                    edge3[0] = 3;
+                    edge3[1] = 0;
+                    edge3[2] = 3;
+                    edge3[3] = 6;
+
+                    edge4[0] = 2;
+                    edge4[1] = 2;
+                    edge4[2] = 5;
+                    edge4[3] = 8;
+                    break;
             }
+        }
+    }
+
+    public void turnFace(int index, String direction) {
+        edgedFace eFace = new edgedFace(index);
+
+        String [][] copy = new String[6][9];
+
+        for (int i = 0; i < 6; i++){
+            for (int j =0; j <9; j++){
+                copy [i][j] = cube [i][j];
+            }
+        }
+
+        switch (direction){
+            case "c":
+                cube [eFace.current_face][0] = copy[eFace.current_face][6];
+                cube [eFace.current_face][1] = copy[eFace.current_face][3];
+                cube [eFace.current_face][2] = copy[eFace.current_face][0];
+                cube [eFace.current_face][3] = copy[eFace.current_face][7];
+                cube [eFace.current_face][5] = copy[eFace.current_face][1];
+                cube [eFace.current_face][6] = copy[eFace.current_face][8];
+                cube [eFace.current_face][7] = copy[eFace.current_face][5];
+                cube [eFace.current_face][8] = copy[eFace.current_face][2];
+
+                //edge 1 changed
+                cube[eFace.edge1[0]][eFace.edge1[1]] = copy[eFace.edge4[0]][eFace.edge4[1]];
+                cube[eFace.edge1[0]][eFace.edge1[2]] = copy[eFace.edge4[0]][eFace.edge4[2]];
+                cube[eFace.edge1[0]][eFace.edge1[3]] = copy[eFace.edge4[0]][eFace.edge4[3]];
+
+                //edge 2 changed 
+                cube[eFace.edge2[0]][eFace.edge2[1]] = copy[eFace.edge1[0]][eFace.edge1[1]];
+                cube[eFace.edge2[0]][eFace.edge2[2]] = copy[eFace.edge1[0]][eFace.edge1[2]];
+                cube[eFace.edge2[0]][eFace.edge2[3]] = copy[eFace.edge1[0]][eFace.edge1[3]];
+                
+                //edge 3 changed
+                cube[eFace.edge3[0]][eFace.edge3[1]] = copy[eFace.edge2[0]][eFace.edge2[1]];
+                cube[eFace.edge3[0]][eFace.edge3[2]] = copy[eFace.edge2[0]][eFace.edge2[2]];
+                cube[eFace.edge3[0]][eFace.edge3[3]] = copy[eFace.edge2[0]][eFace.edge2[3]];
+
+                //edge 4 changed
+                cube[eFace.edge4[0]][eFace.edge4[1]] = copy[eFace.edge3[0]][eFace.edge3[1]];
+                cube[eFace.edge4[0]][eFace.edge4[2]] = copy[eFace.edge3[0]][eFace.edge3[2]];
+                cube[eFace.edge4[0]][eFace.edge4[3]] = copy[eFace.edge3[0]][eFace.edge3[3]];
+                break;
+
+            case "cc":
+                cube [eFace.current_face][0] = copy[eFace.current_face][2];
+                cube [eFace.current_face][1] = copy[eFace.current_face][5];
+                cube [eFace.current_face][2] = copy[eFace.current_face][8];
+                cube [eFace.current_face][3] = copy[eFace.current_face][1];
+                cube [eFace.current_face][5] = copy[eFace.current_face][7];
+                cube [eFace.current_face][6] = copy[eFace.current_face][0];
+                cube [eFace.current_face][7] = copy[eFace.current_face][3];
+                cube [eFace.current_face][8] = copy[eFace.current_face][6];
+
+                //edge 1 changed
+                cube[eFace.edge1[0]][eFace.edge1[1]] = copy[eFace.edge2[0]][eFace.edge2[1]];
+                cube[eFace.edge1[0]][eFace.edge1[2]] = copy[eFace.edge2[0]][eFace.edge2[2]];
+                cube[eFace.edge1[0]][eFace.edge1[3]] = copy[eFace.edge2[0]][eFace.edge2[3]];
+
+                //edge 2 changed
+                cube[eFace.edge2[0]][eFace.edge2[1]] = copy[eFace.edge3[0]][eFace.edge3[1]];
+                cube[eFace.edge2[0]][eFace.edge2[2]] = copy[eFace.edge3[0]][eFace.edge3[2]];
+                cube[eFace.edge2[0]][eFace.edge2[3]] = copy[eFace.edge3[0]][eFace.edge3[3]];
+
+                //edge 3 changed
+                cube[eFace.edge3[0]][eFace.edge3[1]] = copy[eFace.edge4[0]][eFace.edge4[1]];
+                cube[eFace.edge3[0]][eFace.edge3[2]] = copy[eFace.edge4[0]][eFace.edge4[2]];
+                cube[eFace.edge3[0]][eFace.edge3[3]] = copy[eFace.edge4[0]][eFace.edge4[3]];
+
+                //edge 4 changed
+                cube[eFace.edge4[0]][eFace.edge4[1]] = copy[eFace.edge1[0]][eFace.edge1[1]];
+                cube[eFace.edge4[0]][eFace.edge4[2]] = copy[eFace.edge1[0]][eFace.edge1[2]];
+                cube[eFace.edge4[0]][eFace.edge4[3]] = copy[eFace.edge1[0]][eFace.edge1[3]];
+                break;
+        }
+
+    }
+
+    public void showCube() {
+        int ind = 0;
+        for(int x=0; x<6; x++){
+            for (int y=0; y <3; y++){
+                for (int z=0; z<3; z++){
+                    System.out.print(cube[x][ind++]);
+                }
+                System.out.println();
+            }
+            ind = 0;
             System.out.println();
         }
     }
 
-    static void move(String[][][] Cube, String input){
-        switch(input.toLowerCase()){
-            case "u":
-                solutionStack.add("u'");
-            break;
+    public String reverseString (String x) {
 
-            case "d":
-                solutionStack.add("d'");
-            break;
+        char ch;
+        String nstr = "";
 
-            case "r":
-                solutionStack.add("r'");
-            break;
-
-            case "l":
-                solutionStack.add("l'");
-            break;
-
-            case "f":
-                solutionStack.add("f'");
-            break;
-
-            case "b":
-                solutionStack.add("b'");
-            break;
-
-            case "q":
-                proceed = false;
-            break;
-
-            default:
-        }
-    }
-
-    static void rotateFace(String[][] Face, boolean clockwise){
-
-        String[][] tempFace = new String[3][3];
-
-        for(int i=0; i<3;i++)
-            for(int j=0; j<3;j++)
-                tempFace[i][j] = Face[i][j];
-
-        if(clockwise){
-            rotateFace(face, false);
-            rotateFace(face, false);
-            rotateFace(face, false);
-        }else{
-            for(int i=0; i<3;i++)
-                for(int j=0; j<3;j++)
-                    Face[i][j] = tempFace[j][i];
-            
-            String[] tempRow = new String[3];
-
-            for(int k=0; k<3;k++)
-                tempRow[k] = Face[0][k];
-            
-            Face[0] = Face[2];
-            Face[2] = tempRow;
+        for (int i = 0; i < x.length(); i++) {
+            ch = x.charAt(i);
+            nstr = ch + nstr;
         }
 
+        return nstr;
 
     }
 
 
-    public static void main(String[] args){
-        Scanner input = new Scanner(System.in);
+    public static void main(String[]args){
+
+        Scanner in = new Scanner (System.in);
+
+        cubes Rubiks = new cubes();
+
+        boolean proceed = true;
+
         while(proceed){
-            move(cube, input.next());
+            
+            String input = in.nextLine();
+            String solve = "";
+
+            switch (input) {
+
+                //Yellow C
+                case "u":
+                    Rubiks.turnFace(4, "c");
+                    Rubiks.showCube();
+                    solve += "u ";
+                    break;
+                //Yellow Cc
+                case "u'":
+                    Rubiks.turnFace(4, "cc");
+                    Rubiks.showCube();
+                    solve += "u' ";
+                    break;
+                //White C
+                case "d":
+                    Rubiks.turnFace(5, "c");
+                    Rubiks.showCube();
+                    solve += "d ";
+                    break;
+
+                //White Cc
+                case "d'":
+                    Rubiks.turnFace(5, "cc");
+                    Rubiks.showCube();
+                    solve += "d' ";
+                    break;
+
+                //Red C
+                case "r":
+                    Rubiks.turnFace(0, "c");
+                    Rubiks.showCube();
+                    solve += "r ";
+                    break;
+
+                //Red Cc
+                case "r'":
+                    Rubiks.turnFace(0, "cc");
+                    Rubiks.showCube();
+                    solve += "r' ";
+                    break;
+
+                //Orange C
+                case "l":
+                    Rubiks.turnFace(2, "c");
+                    Rubiks.showCube();
+                    solve += "l ";
+                    break;
+
+                //Orange Cc
+                case "l'":
+                    Rubiks.turnFace(2, "cc");
+                    Rubiks.showCube();
+                    solve += "l' ";
+                    break;
+
+                //Blue C
+                case "f":
+                    Rubiks.turnFace(1, "c");
+                    Rubiks.showCube();
+                    solve += "f ";
+                    break;
+
+                //Blue Cc
+                case "f'":
+                    Rubiks.turnFace(1, "cc");
+                    Rubiks.showCube();
+                    solve += "f' ";
+                    break;
+
+                //Green C
+                case "b":
+                    Rubiks.turnFace(3, "c");
+                    Rubiks.showCube();
+                    solve += "b ";
+                    break;
+
+                //Green CC
+                case "b'":
+                    Rubiks.turnFace(3, "cc");
+                    Rubiks.showCube();
+                    solve += "b' ";
+                    break;
+
+                //Solution
+                case "s":
+                    System.out.println("Here are the steps to solve the cube" + Rubiks.reverseString(solve));
+                    break;
+                //Quit
+                case "q":
+                    proceed = false;
+                    break;
+            }
         }
-        solve();
-        rotateFace(face, true);
-        show(cube[0]);
-        show(cube[1]);
-        show(cube[2]);
-        show(cube[3]);
-        show(cube[4]);
-        show(cube[5]);
     }
 }
