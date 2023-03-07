@@ -385,10 +385,6 @@ public class cubes {
                     solve += "b' ";
                     break;
 
-                //Solution
-                case "s":
-                    System.out.println("Here are the steps to solve the cube" + Rubiks.reverseString(solve));
-                    break;
                 //Quit
                 case "q":
                     proceed = false;
