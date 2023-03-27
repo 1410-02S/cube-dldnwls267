@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+//Looks pretty Great I think. Complete enough, Some case work could be worthwhile but otherwise I think you should be proud of this.
 
 public class cubes {
 
